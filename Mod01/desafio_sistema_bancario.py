@@ -30,36 +30,38 @@ while True:
     elif opcao == '2':
         try:
             valor_sacado = float(input('Digite um valor a ser sacado: '))
-            
-            #verifica se o valor é valido  
-            if valor_sacado > 0:
-            
-                # verifica se ha saldo
-                if sum(extrato) >= valor_sacado :
-
-                    # verifica se ha saques disponiveis
-                    if n_saques < N_MAX_SAQUE:
-                        extrato.append(valor_sacado * -1)
-                        print(f'Valor de {valor_sacado} sacado com sucesso!')
-                        n_saques += 1
-
-                    else:
-                        print('Número de Saques diários excedido!')
-
-                else:
-                    print('Saldo indisponivel!')
-            
-            else:
-                print('Valor invalido!')
-
         except:
             print('Valor invalido!')
+            continue
+            
+        #verifica se o valor é valido  
+        if valor_sacado > 0:
+        
+            # verifica se ha saldo
+            if sum(extrato) >= valor_sacado :
+
+                # verifica se ha saques disponiveis
+                if n_saques < N_MAX_SAQUE:
+                    extrato.append(valor_sacado * -1)
+                    print(f'Valor de {valor_sacado} sacado com sucesso!')
+                    n_saques += 1
+
+                else:
+                    print('Número de Saques diários excedido!')
+
+            else:
+                print('Saldo indisponivel!')
+        
+        else:
+            print('Valor invalido!')
+
+        
 
     elif opcao == '3':
         print(' Seu Extrato '.center(25,'#'))
         print()
         for i in range(len(extrato)):
-            print(f'{i} -----------S R${extrato[i]}')
+            print(f'{i} ----------- R${extrato[i]}')
         print(f'Saldo total : R${sum(extrato):.2f}')
    
     else:
