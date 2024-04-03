@@ -1,7 +1,4 @@
 from typing import Any
-#criar func 
-# [c] Cadastrar Usuário
-# [b] Criar Conta Corrente
 
 saldo:float = 0
 limite:float = 500
