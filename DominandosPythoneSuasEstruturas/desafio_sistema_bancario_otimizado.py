@@ -9,11 +9,8 @@ extrato:str = ""
 numero_saques:int = 0
 LIMITE_SAQUES:int = 3
 
-usuarios:list = [{'Nome': 'bruno', 'Data Nascimento': '12', 'C.P.F.': 123, 'Endereco': {'Logradouro': 'av', 'Numero': '23', 'Bairro': 'ddd', 'Cidade': 'ss', 'UF': 'as'}},
-                  {'Nome': 'Carlos', 'Data Nascimento': 'asd', 'C.P.F.': 1234, 'Endereco': {'Logradouro': 'r', 'Numero': 'r', 'Bairro': 'f', 'Cidade': 'f', 'UF': 'f'}}]
-contas:list = [{'Agencia': '0001', 'Número da Conta': 1, 'Usuário': 123, 'Saldo': 0, 'extrato': '', 'numero_saques': 0},
-               {'Agencia': '0001', 'Número da Conta': 2, 'Usuário': 1234, 'Saldo': 0, 'extrato': '', 'numero_saques': 0},
-                {'Agencia': '0001', 'Número da Conta': 3, 'Usuário': 1234, 'Saldo': 0, 'extrato': '', 'numero_saques': 0}]
+usuarios:list = []
+contas:list = []
 
 def cadastro_usuario(usuarios:list)-> list:
     """
