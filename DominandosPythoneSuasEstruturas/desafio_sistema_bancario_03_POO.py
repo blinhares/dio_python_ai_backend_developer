@@ -160,20 +160,27 @@ class Conta:
     def nova_conta(cls, cliente, numero):
         return cls(numero, cliente)
         
-        
-    def sacar(self, valor:float)->bool:
+    def _maior_que_zero(self,valor:float)->bool:
         if valor <= 0:
+            print("Operação falhou! Valor menor que 0.")
             return False
+        return True
+
+    def _excedeu_saldo(self, valor:float)->bool:
         excedeu_saldo = valor > self._saldo
         if excedeu_saldo:
             print("Operação falhou! Você não tem saldo suficiente.")
-            return False
-    
-        self._saldo -= valor
-        return True
+            return True
+        return False
+
+    def sacar(self, valor:float)->bool:
+        if not self._excedeu_saldo(valor) and self._maior_que_zero(valor):
+            self._saldo -= valor
+            return True
+        return False
 
     def depositar(self, valor:float)-> bool:
-        if valor > 0:
+        if self._maior_que_zero(valor):
             self._saldo += valor
             return True
         return False
@@ -187,35 +194,29 @@ class ContaCorrente(Conta):
         super().__init__(numero, cliente)
         self._limite = limite
         self._limite_saque = limite_saque
-    #TODO ao inves de sobrescrever o metodo sacar, de pode decorar o ja existente
     
-    def sacar(self, valor:float)->bool:
-        if valor <= 0:
-            print("Operação falhou! O valor informado é inválido.")
-            return False
-        excedeu_saldo = valor > self._saldo
+    def _excedeu_limite(self, valor:float)->bool:
         excedeu_limite = valor > self._limite
+        if excedeu_limite:
+            print("Operação falhou! O valor do saque excede o limite.")
+            return True
+        return False
+    
+    def _excedeu_saques(self,valor:float)-> bool:
         numero_saques = len(
             [transacao for transacao in self.historico.transacoes if transacao['tipo'] == Saque.__name__]
         )
         excedeu_saques = numero_saques >= self._limite_saque
-
-        if excedeu_saldo:
-            print("Operação falhou! Você não tem saldo suficiente.")
-
-        elif excedeu_limite:
-            print("Operação falhou! O valor do saque excede o limite.")
-
-        elif excedeu_saques:
+        if excedeu_saques:
             print("Operação falhou! Número máximo de saques excedido.")
-
-        if excedeu_saldo or excedeu_limite or excedeu_saques :
-            return False
+            return True
+        return False
     
-        self._saldo -= valor
-        return True
+    def sacar(self, valor: float) -> bool:
+        if not self._excedeu_limite(valor) and not self._excedeu_saques(valor):
+            return super().sacar(valor)
 
-        
+
     def __str__(self):
         return f'''
     Agencia:\t{self.agencia}
@@ -273,25 +274,25 @@ def main():
     pessoas:list[PessoaFisica] = []
    
    #cadastrando usuarios para testes
-    pessoas.append(PessoaFisica('444.555.666-11',
-                               'Carlos','22-07-1980',
-                               'rua de baixo, 12'))
-    pessoas.append(PessoaFisica('123.432.123-11',
-                               'bruno','24-01-1990',
-                               'rua de cima, 123'))
-    contas_correntes.append(ContaCorrente(1,pessoas[0]))
-    contas_correntes.append(ContaCorrente(2,pessoas[0]))
-    contas_correntes.append(ContaCorrente(3,pessoas[1]))
-    transacao = Deposito(1000)
-    transacao.registrar(contas_correntes[0])
-    transacao = Deposito(140)
-    transacao.registrar(contas_correntes[0])
-    transacao = Deposito(500)
-    transacao.registrar(contas_correntes[1])
-    transacao = Deposito(10)
-    transacao.registrar(contas_correntes[1])
-    transacao = Deposito(300)
-    transacao.registrar(contas_correntes[2])
+    # pessoas.append(PessoaFisica('444.555.666-11',
+    #                            'Carlos','22-07-1980',
+    #                            'rua de baixo, 12'))
+    # pessoas.append(PessoaFisica('123.432.123-11',
+    #                            'bruno','24-01-1990',
+    #                            'rua de cima, 123'))
+    # contas_correntes.append(ContaCorrente(1,pessoas[0]))
+    # contas_correntes.append(ContaCorrente(2,pessoas[0]))
+    # contas_correntes.append(ContaCorrente(3,pessoas[1]))
+    # transacao = Deposito(1000)
+    # transacao.registrar(contas_correntes[0])
+    # transacao = Deposito(140)
+    # transacao.registrar(contas_correntes[0])
+    # transacao = Deposito(500)
+    # transacao.registrar(contas_correntes[1])
+    # transacao = Deposito(10)
+    # transacao.registrar(contas_correntes[1])
+    # transacao = Deposito(300)
+    # transacao.registrar(contas_correntes[2])
 
 
 
