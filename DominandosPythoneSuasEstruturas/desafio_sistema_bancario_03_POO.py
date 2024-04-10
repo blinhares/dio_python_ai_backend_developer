@@ -96,7 +96,7 @@ class Deposito(Transacao):
 
                 
 class Saque(Transacao):
-    def __init__(self, valor:float, conta) -> None:
+    def __init__(self, valor:float) -> None:
         self._valor = valor
 
     @property
@@ -105,11 +105,10 @@ class Saque(Transacao):
 
     def registrar(self, conta):
         if conta.sacar(self._valor):
-            print(f'(-)Saque de: R${self._valor}')
             conta.historico.adicionar_transacao(self)
+            print(f'(-)Saque de: R${self._valor}')
+
             
-        
-           
 
 class Historico:
     def __init__(self) -> None:
@@ -167,6 +166,7 @@ class Conta:
             return False
         excedeu_saldo = valor > self._saldo
         if excedeu_saldo:
+            print("Operação falhou! Você não tem saldo suficiente.")
             return False
     
         self._saldo -= valor
@@ -187,7 +187,8 @@ class ContaCorrente(Conta):
         super().__init__(numero, cliente)
         self._limite = limite
         self._limite_saque = limite_saque
-
+    #TODO ao inves de sobrescrever o metodo sacar, de pode decorar o ja existente
+    
     def sacar(self, valor:float)->bool:
         if valor <= 0:
             print("Operação falhou! O valor informado é inválido.")
@@ -281,6 +282,16 @@ def main():
     contas_correntes.append(ContaCorrente(1,pessoas[0]))
     contas_correntes.append(ContaCorrente(2,pessoas[0]))
     contas_correntes.append(ContaCorrente(3,pessoas[1]))
+    transacao = Deposito(1000)
+    transacao.registrar(contas_correntes[0])
+    transacao = Deposito(140)
+    transacao.registrar(contas_correntes[0])
+    transacao = Deposito(500)
+    transacao.registrar(contas_correntes[1])
+    transacao = Deposito(10)
+    transacao.registrar(contas_correntes[1])
+    transacao = Deposito(300)
+    transacao.registrar(contas_correntes[2])
 
 
 
@@ -290,25 +301,38 @@ def main():
         if opcao == '1':
             if len(contas_correntes)<1:
                 print('Nao ha contas cadastradas')
+                continue
             print('Selecione a Conta para qual deseja realizar a operacao')
             conta_index = escolher_da_lista(contas_correntes)
             valor = receber_valor()
             transacao = Deposito(valor)
             transacao.registrar(contas_correntes[conta_index])
-            contas_correntes[conta_index].historico
             
-
-        
         elif opcao == '2':
             if len(contas_correntes)<1:
                 print('Nao ha contas cadastradas')
-            ...
+                continue
+            print('Selecione a Conta para qual deseja realizar a operacao')
+            conta_index = escolher_da_lista(contas_correntes)
+            valor = receber_valor()
+            transacao = Saque(valor)
+            transacao.registrar(contas_correntes[conta_index])
+            
         elif opcao == '3':
             if len(contas_correntes)<1:
                 print('Nao ha contas cadastradas')
-            conta_index = escolher_da_lista(contas_correntes)
-            print(contas_correntes[conta_index].historico.transacoes)
-            ...
+            else:
+                conta_index = escolher_da_lista(contas_correntes)
+                transacoes = contas_correntes[conta_index].historico.transacoes
+                print('-'*80)
+                print('TIPO'.center(20),'VALOR'.center(20),'Data'.center(20))
+                for transacao in transacoes:
+                    # print(transacao['tipo'])
+                    print(str(transacao['tipo']).center(20),str(transacao['valor']).center(20),
+                          str(transacao['data']).center(20))
+                print('-'*80)
+                print('Saldo : R$'.center(20),contas_correntes[conta_index].saldo)
+                    
         elif opcao == '4':
             print('Cadastrando Conta corrente...')
             cliente_numero = escolher_da_lista(pessoas)
@@ -319,7 +343,7 @@ def main():
             contas_correntes.append(nova_conta)
             print('Cadastro realizado com sucesso!')
 
-            ...
+            
         elif opcao == '5':
             nome = input('Digite o nome: ')
             cpf = input('Digite o cpf: ')
