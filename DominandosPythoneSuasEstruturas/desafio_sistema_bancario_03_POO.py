@@ -227,10 +227,12 @@ def main():
 
 
     def imprimir_lista(lista):
+        print('-'.center(40,'-'))
         for index,item in enumerate(lista):
                 print()
                 print(f'N.: {index}')
                 print(item)
+        print('-'.center(40,'-'))
 
     def escolher_da_lista(lista):
         while True:
@@ -249,6 +251,7 @@ def main():
         while True:
             try:
                 valor = float(input('Digite um valor =>> '))
+                print()
             except:
                 print('Valor invalido!')
             if valor < 0:
@@ -300,6 +303,7 @@ def main():
         print(menu)
         opcao = input('Digite uma opcao=>> ')
         if opcao == '1':
+            print('DEPOSITO'.center(40,'-'))
             if len(contas_correntes)<1:
                 print('Nao ha contas cadastradas')
                 continue
@@ -308,8 +312,12 @@ def main():
             valor = receber_valor()
             transacao = Deposito(valor)
             transacao.registrar(contas_correntes[conta_index])
+            print('DEPOSITO'.center(40,'-'))
+
             
         elif opcao == '2':
+            print('SACAR'.center(40,'-'))
+
             if len(contas_correntes)<1:
                 print('Nao ha contas cadastradas')
                 continue
@@ -318,8 +326,11 @@ def main():
             valor = receber_valor()
             transacao = Saque(valor)
             transacao.registrar(contas_correntes[conta_index])
+            print('SACAR'.center(40,'-'))
             
         elif opcao == '3':
+            print('EXTRATO'.center(40,'-'))
+
             if len(contas_correntes)<1:
                 print('Nao ha contas cadastradas')
             else:
@@ -333,8 +344,11 @@ def main():
                           str(transacao['data']).center(20))
                 print('-'*80)
                 print('Saldo : R$'.center(20),contas_correntes[conta_index].saldo)
+            print('EXTRATO'.center(40,'-'))
+
                     
         elif opcao == '4':
+            print('CADASTRO C.C.'.center(40,'-'))
             print('Cadastrando Conta corrente...')
             cliente_numero = escolher_da_lista(pessoas)
             numero_conta = len(contas_correntes) + 1
@@ -343,9 +357,10 @@ def main():
                 pessoas[cliente_numero])
             contas_correntes.append(nova_conta)
             print('Cadastro realizado com sucesso!')
-
+            print('CADASTRO C.C.'.center(40,'-'))
             
         elif opcao == '5':
+            print('CADASTRO USUARIO'.center(40,'-'))
             nome = input('Digite o nome: ')
             cpf = input('Digite o cpf: ')
             data_nascimento = input('Digite a Data de Nascimento: ')
@@ -353,12 +368,20 @@ def main():
             nova_pessoa = PessoaFisica(cpf,nome, data_nascimento, endereco)
             print(nova_pessoa)
             pessoas.append(nova_pessoa)
+            print('CADASTRO USUARIO'.center(40,'-'))
+
         elif opcao == '6':
+            print('LISTAR CONTAS'.center(40,'-'))
             print(f'O banco de dados possue {len(contas_correntes)} registros')
             imprimir_lista(contas_correntes)
+            print('LISTAR CONTAS - FIM'.center(40,'-'))
+
         elif opcao == '7':
+            print('LISTAR USUARIOS'.center(40,'-'))
             print(f'O banco de dados possue {len(pessoas)} registros')
             imprimir_lista(pessoas)
+            print('LISTAR USUARIOS - FIM'.center(40,'-'))
+
 
         elif opcao == '0':
             print('Saindo do sistema...')
