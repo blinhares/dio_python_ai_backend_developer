@@ -1,6 +1,6 @@
 from abc import ABC 
 from abc import abstractmethod
-from datetime import datetime
+from datetime import datetime, timedelta
 import functools
 
 
@@ -123,7 +123,7 @@ class Historico:
                 'tipo':transacao.__class__.__name__,
                 'valor':transacao.valor,
                 'data':datetime.now().\
-                    strftime('%d-%m-%Y %H:%M:%s')
+                    strftime('%d-%m-%Y %H:%M:%S:%f')
 
             }
         )
@@ -170,20 +170,20 @@ class Conta:
     def nova_conta(cls, cliente, numero):
         return cls(numero, cliente)
         
-    def _maior_que_zero(self,valor:float)->bool:
+    def _maior_que_zero(self,valor:float)-> bool:
         if valor <= 0:
             print("Operação falhou! Valor menor que 0.")
             return False
         return True
 
-    def _excedeu_saldo(self, valor:float)->bool:
+    def _excedeu_saldo(self, valor:float)-> bool:
         excedeu_saldo = valor > self._saldo
         if excedeu_saldo:
             print("Operação falhou! Você não tem saldo suficiente.")
             return True
         return False
 
-    def sacar(self, valor:float)->bool:
+    def sacar(self, valor:float)-> bool:
         if not self._excedeu_saldo(valor) and self._maior_que_zero(valor):
             self._saldo -= valor
             return True
@@ -201,31 +201,40 @@ class Conta:
 class ContaCorrente(Conta):
     def __init__(self, numero: int, cliente: Cliente,
                  limite:float=500,
-                 limite_saque:int=3) -> None:
+                 limite_diario_trans:int=10) -> None:
         super().__init__(numero, cliente)
         self._limite = limite
-        self._limite_saque = limite_saque
+        self._limite_diario_trans = limite_diario_trans
     
-    def _excedeu_limite(self, valor:float)->bool:
+    def _excedeu_limite_monetario(self, valor:float)->bool:
         excedeu_limite = valor > self._limite
         if excedeu_limite:
             print("Operação falhou! O valor do saque excede o limite.")
             return True
         return False
     
-    def _excedeu_saques(self,valor:float)-> bool:
-        numero_saques = len(
-            [transacao for transacao in self.historico.transacoes if transacao['tipo'] == Saque.__name__]
+    def _excedeu_limite_diario(self)-> bool:
+
+        numero_diario_trans = len(
+            [transacao for transacao in self.historico.transacoes if 
+             datetime.strptime(transacao['data'],'%d-%m-%Y %H:%M:%S:%f').date() == datetime.now().date() ]
         )
-        excedeu_saques = numero_saques >= self._limite_saque
-        if excedeu_saques:
+        
+        excedeu_num_transacoes = numero_diario_trans >= self._limite_diario_trans
+        if excedeu_num_transacoes:
             print("Operação falhou! Número máximo de saques excedido.")
             return True
         return False
     
+    def depositar(self, valor: float) -> bool:
+        if not self._excedeu_limite_diario():
+            return super().depositar(valor)
+        return False
+    
     def sacar(self, valor: float) -> bool:
-        if not self._excedeu_limite(valor) and not self._excedeu_saques(valor):
+        if not self._excedeu_limite_monetario(valor) and not self._excedeu_limite_diario():
             return super().sacar(valor)
+        return False
 
 
     def __str__(self):
@@ -414,6 +423,23 @@ def main():
     contas_correntes.append(ContaCorrente(3,pessoas[1]))
     transacao = Deposito(1000)
     transacao.registrar(contas_correntes[0])
+
+    transacao = Deposito(200)
+    transacao.registrar(contas_correntes[0])
+    transacao = Deposito(300)
+    transacao.registrar(contas_correntes[0])
+    transacao = Deposito(400)
+    transacao.registrar(contas_correntes[0])
+    transacao = Deposito(500)
+    transacao.registrar(contas_correntes[0])
+    transacao = Deposito(600)
+    transacao.registrar(contas_correntes[0])
+    transacao = Deposito(800)
+    transacao.registrar(contas_correntes[0])
+    transacao = Deposito(900)
+    transacao.registrar(contas_correntes[0])
+    transacao = Deposito(1000)
+    transacao.registrar(contas_correntes[0])
     transacao = Deposito(140)
     transacao.registrar(contas_correntes[0])
     transacao = Deposito(500)
@@ -456,3 +482,12 @@ def main():
 
 if __name__ == '__main__':
     main()
+    
+    # data = datetime.now().strftime('%d-%m-%Y %H:%M:%S:%f')
+    # print(data)
+    # print(type(data))
+    # data2 = datetime.strptime(data,'%d-%m-%Y %H:%M:%S:%f')
+    # print(data2)
+    # print(type(data2))
+    # time = data2.date()
+    # print(time == datetime.now().date())
