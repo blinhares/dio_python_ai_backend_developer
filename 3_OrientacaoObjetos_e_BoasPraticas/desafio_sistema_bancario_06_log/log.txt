@@ -1,0 +1,51 @@
+[12-04-2024 19:30:1712961004] : ESCOLHER_DA_LISTA Iniciado...
+[12-04-2024 19:30:1712961004] : ESCOLHER_DA_LISTA : Args : ([<C.C. -> Ag.: 0001 N.: 1>, <C.C. -> Ag.: 0001 N.: 2>, <C.C. -> Ag.: 0001 N.: 3>],) : KArgs : {} ;
+[12-04-2024 19:30:1712961004] : ESCOLHER_DA_LISTA : Retunr : 1 ;
+[12-04-2024 16:30:1712950205] : ESCOLHER_DA_LISTA finalizado!
+[12-04-2024 19:30:1712961005] : RECEBER_VALOR Iniciado...
+[12-04-2024 19:30:1712961005] : RECEBER_VALOR : Args : () : KArgs : {} ;
+[12-04-2024 19:30:1712961005] : RECEBER_VALOR : Retunr : 1.0 ;
+[12-04-2024 16:30:1712950206] : RECEBER_VALOR finalizado!
+[12-04-2024 19:30:1712961004] : DEPOSITO Iniciado...
+[12-04-2024 19:30:1712961004] : DEPOSITO : Args : ([<C.C. -> Ag.: 0001 N.: 1>, <C.C. -> Ag.: 0001 N.: 2>, <C.C. -> Ag.: 0001 N.: 3>],) : KArgs : {} ;
+[12-04-2024 19:30:1712961004] : DEPOSITO : Retunr : None ;
+[12-04-2024 16:30:1712950206] : DEPOSITO finalizado!
+[12-04-2024 19:31:1712961083] : ESCOLHER_DA_LISTA Iniciado...
+[12-04-2024 19:31:1712961083] : ESCOLHER_DA_LISTA : Args : ([<C.C. -> Ag.: 0001 N.: 1>, <C.C. -> Ag.: 0001 N.: 2>, <C.C. -> Ag.: 0001 N.: 3>],) : KArgs : {} ;
+[12-04-2024 19:31:1712961083] : ESCOLHER_DA_LISTA : Retunr : 1 ;
+[12-04-2024 16:31:1712950284] : ESCOLHER_DA_LISTA finalizado!
+[12-04-2024 19:31:1712961083] : EXTRATO Iniciado...
+[12-04-2024 19:31:1712961083] : EXTRATO : Args : ([<C.C. -> Ag.: 0001 N.: 1>, <C.C. -> Ag.: 0001 N.: 2>, <C.C. -> Ag.: 0001 N.: 3>],) : KArgs : {} ;
+[12-04-2024 19:31:1712961083] : EXTRATO : Retunr : None ;
+[12-04-2024 16:31:1712950284] : EXTRATO finalizado!
+[12-04-2024 19:32:1712961169] : ESCOLHER_DA_LISTA Iniciado...
+[12-04-2024 19:32:1712961169] : ESCOLHER_DA_LISTA : Args : ([<C.C. -> Ag.: 0001 N.: 1>, <C.C. -> Ag.: 0001 N.: 2>, <C.C. -> Ag.: 0001 N.: 3>],) : KArgs : {} ;
+[12-04-2024 19:32:1712961169] : ESCOLHER_DA_LISTA : Retunr : 1 ;
+[12-04-2024 16:32:1712950370] : ESCOLHER_DA_LISTA finalizado!
+[12-04-2024 19:32:1712961169] : RETORNAR_CONTA Iniciado...
+[12-04-2024 19:32:1712961169] : RETORNAR_CONTA : Args : ([<C.C. -> Ag.: 0001 N.: 1>, <C.C. -> Ag.: 0001 N.: 2>, <C.C. -> Ag.: 0001 N.: 3>],) : KArgs : {} ;
+[12-04-2024 19:32:1712961169] : RETORNAR_CONTA : Retunr : 
+    Agencia:	0001
+    C/C:	 2
+    Titular:	
+    Nome: Carlos
+    CPF: 444.555.666-11
+    D. Nasci.: 22-07-1980
+    End.:rua de baixo, 12  ;
+[12-04-2024 16:32:1712950370] : RETORNAR_CONTA finalizado!
+[12-04-2024 19:32:1712961170] : RECEBER_VALOR Iniciado...
+[12-04-2024 19:32:1712961170] : RECEBER_VALOR : Args : () : KArgs : {} ;
+[12-04-2024 19:32:1712961170] : RECEBER_VALOR : Retunr : 1.0 ;
+[12-04-2024 16:33:1712950381] : RECEBER_VALOR finalizado!
+[12-04-2024 19:32:1712961169] : DEPOSITO Iniciado...
+[12-04-2024 19:32:1712961169] : DEPOSITO : Args : ([<C.C. -> Ag.: 0001 N.: 1>, <C.C. -> Ag.: 0001 N.: 2>, <C.C. -> Ag.: 0001 N.: 3>],) : KArgs : {} ;
+[12-04-2024 19:32:1712961169] : DEPOSITO : Retunr : None ;
+[12-04-2024 16:33:1712950381] : DEPOSITO finalizado!
+[12-04-2024 19:33:1712961231] : ESCOLHER_DA_LISTA Iniciado...
+[12-04-2024 19:33:1712961231] : ESCOLHER_DA_LISTA : Args : ([<C.C. -> Ag.: 0001 N.: 1>, <C.C. -> Ag.: 0001 N.: 2>, <C.C. -> Ag.: 0001 N.: 3>],) : KArgs : {} ;
+[12-04-2024 19:33:1712961231] : ESCOLHER_DA_LISTA : Retunr : 1 ;
+[12-04-2024 16:33:1712950432] : ESCOLHER_DA_LISTA finalizado!
+[12-04-2024 19:33:1712961231] : EXTRATO Iniciado...
+[12-04-2024 19:33:1712961231] : EXTRATO : Args : ([<C.C. -> Ag.: 0001 N.: 1>, <C.C. -> Ag.: 0001 N.: 2>, <C.C. -> Ag.: 0001 N.: 3>],) : KArgs : {} ;
+[12-04-2024 19:33:1712961231] : EXTRATO : Retunr : None ;
+[12-04-2024 16:33:1712950432] : EXTRATO finalizado!
