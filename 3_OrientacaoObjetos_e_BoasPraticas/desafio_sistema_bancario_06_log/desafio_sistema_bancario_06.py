@@ -3,6 +3,14 @@ from abc import abstractmethod
 from datetime import datetime
 import functools
 from pathlib import Path
+from rich import print
+from rich.panel import Panel
+from rich.progress import track
+from rich.console import Console
+from rich.columns import Columns
+
+con = Console()
+
 
 LOG_FILE_DIR = Path(__file__).parent / 'log.txt'
 
@@ -301,13 +309,13 @@ def log_transacao(func):
 
     return wrap
 
-def imprimir_lista(lista):
-    print('-'.center(80,'-'))
+def imprimir_lista(lista, titulo='Lista'):
+    resultado = []
     for index,item in enumerate(lista):
-            print()
-            print(f'N.: {index}')
-            print(item)
-    print('-'.center(80,'-'))
+            resultado.append(Panel(f'N.: {index}\n {item}',expand=True))
+    con.print(
+        Panel(Columns(resultado),title=titulo ,expand=True)
+    )
 
 @log_transacao
 def escolher_da_lista(lista):
@@ -376,7 +384,7 @@ def extrato(contas_correntes):
         conta_index = escolher_da_lista(contas_correntes)
         print('-'*80)
         print('extrato da Conta'.upper().center(80))
-        imprimir_lista([contas_correntes[conta_index]])
+        imprimir_lista([contas_correntes[conta_index]], 'Lista de Contas Correntes')
         # print('-'*80)
         print('TIPO'.center(20),'VALOR'.center(20),'Data'.center(20))
         for transacao in contas_correntes[conta_index].historico.gerar_relatorio():
@@ -424,11 +432,11 @@ def listar_contas(contas_correntes):
 def listar_usuarios(pessoas):
                 print('LISTAR USUARIOS'.center(40,'-'))
                 print(f'O banco de dados possue {len(pessoas)} registros')
-                imprimir_lista(pessoas)
+                imprimir_lista(pessoas, 'Lista de Usuarios')
 
 
 def main():
-
+  
     menu = '''
     [1] Depositar
     [2] Sacar
@@ -482,7 +490,7 @@ def main():
     transacao.registrar(contas_correntes[2])
 
     while True:
-        print(menu)
+        con.print(Panel.fit(menu,title='Menu Banco'))
         opcao = input('Digite uma opcao=>> ')
         if opcao == '1':
             deposito(contas_correntes)

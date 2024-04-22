@@ -49,3 +49,54 @@
 [12-04-2024 19:33:1712961231] : EXTRATO : Args : ([<C.C. -> Ag.: 0001 N.: 1>, <C.C. -> Ag.: 0001 N.: 2>, <C.C. -> Ag.: 0001 N.: 3>],) : KArgs : {} ;
 [12-04-2024 19:33:1712961231] : EXTRATO : Retunr : None ;
 [12-04-2024 16:33:1712950432] : EXTRATO finalizado!
+[22-04-2024 18:24:1713821068] : ESCOLHER_DA_LISTA Iniciado...
+[22-04-2024 18:24:1713821068] : ESCOLHER_DA_LISTA : Args : ([<Cliente : (444.555.666-11)>, <Cliente : (123.432.123-11)>],) : KArgs : {} ;
+[22-04-2024 18:24:1713821068] : ESCOLHER_DA_LISTA : Retunr : 1 ;
+[22-04-2024 15:25:1713810303] : ESCOLHER_DA_LISTA finalizado!
+[22-04-2024 18:24:1713821068] : CRIAR_CONTA_CORRENTE Iniciado...
+[22-04-2024 18:24:1713821068] : CRIAR_CONTA_CORRENTE : Args : ([<Cliente : (444.555.666-11)>, <Cliente : (123.432.123-11)>], [<C.C. -> Ag.: 0001 N.: 1>, <C.C. -> Ag.: 0001 N.: 2>, <C.C. -> Ag.: 0001 N.: 3>]) : KArgs : {} ;
+[22-04-2024 18:24:1713821068] : CRIAR_CONTA_CORRENTE : Retunr : None ;
+[22-04-2024 15:25:1713810303] : CRIAR_CONTA_CORRENTE finalizado!
+[22-04-2024 18:45:1713822307] : ESCOLHER_DA_LISTA Iniciado...
+[22-04-2024 18:45:1713822307] : ESCOLHER_DA_LISTA : Args : ([<C.C. -> Ag.: 0001 N.: 1>, <C.C. -> Ag.: 0001 N.: 2>, <C.C. -> Ag.: 0001 N.: 3>],) : KArgs : {} ;
+[22-04-2024 18:45:1713822307] : ESCOLHER_DA_LISTA : Retunr : 1 ;
+[22-04-2024 15:45:1713811528] : ESCOLHER_DA_LISTA finalizado!
+[22-04-2024 18:45:1713822307] : EXTRATO Iniciado...
+[22-04-2024 18:45:1713822307] : EXTRATO : Args : ([<C.C. -> Ag.: 0001 N.: 1>, <C.C. -> Ag.: 0001 N.: 2>, <C.C. -> Ag.: 0001 N.: 3>],) : KArgs : {} ;
+[22-04-2024 18:45:1713822307] : EXTRATO : Retunr : None ;
+[22-04-2024 15:45:1713811528] : EXTRATO finalizado!
+[22-04-2024 18:45:1713822339] : ESCOLHER_DA_LISTA Iniciado...
+[22-04-2024 18:45:1713822339] : ESCOLHER_DA_LISTA : Args : ([<C.C. -> Ag.: 0001 N.: 1>, <C.C. -> Ag.: 0001 N.: 2>, <C.C. -> Ag.: 0001 N.: 3>],) : KArgs : {} ;
+[22-04-2024 18:45:1713822339] : ESCOLHER_DA_LISTA : Retunr : 1 ;
+[22-04-2024 15:45:1713811542] : ESCOLHER_DA_LISTA finalizado!
+[22-04-2024 18:45:1713822339] : RETORNAR_CONTA Iniciado...
+[22-04-2024 18:45:1713822339] : RETORNAR_CONTA : Args : ([<C.C. -> Ag.: 0001 N.: 1>, <C.C. -> Ag.: 0001 N.: 2>, <C.C. -> Ag.: 0001 N.: 3>],) : KArgs : {} ;
+[22-04-2024 18:45:1713822339] : RETORNAR_CONTA : Retunr : 
+    Agencia:	0001
+    C/C:	 2
+    Titular:	
+    Nome: Carlos
+    CPF: 444.555.666-11
+    D. Nasci.: 22-07-1980
+    End.:rua de baixo, 12  ;
+[22-04-2024 15:45:1713811542] : RETORNAR_CONTA finalizado!
+[22-04-2024 18:45:1713822342] : RECEBER_VALOR Iniciado...
+[22-04-2024 18:45:1713822342] : RECEBER_VALOR : Args : () : KArgs : {} ;
+[22-04-2024 18:45:1713822342] : RECEBER_VALOR : Retunr : 123.0 ;
+[22-04-2024 15:45:1713811544] : RECEBER_VALOR finalizado!
+[22-04-2024 18:45:1713822339] : DEPOSITO Iniciado...
+[22-04-2024 18:45:1713822339] : DEPOSITO : Args : ([<C.C. -> Ag.: 0001 N.: 1>, <C.C. -> Ag.: 0001 N.: 2>, <C.C. -> Ag.: 0001 N.: 3>],) : KArgs : {} ;
+[22-04-2024 18:45:1713822339] : DEPOSITO : Retunr : None ;
+[22-04-2024 15:45:1713811544] : DEPOSITO finalizado!
+[22-04-2024 18:53:1713822809] : ESCOLHER_DA_LISTA Iniciado...
+[22-04-2024 18:53:1713822809] : ESCOLHER_DA_LISTA : Args : ([<C.C. -> Ag.: 0001 N.: 1>, <C.C. -> Ag.: 0001 N.: 2>, <C.C. -> Ag.: 0001 N.: 3>],) : KArgs : {} ;
+[22-04-2024 18:53:1713822809] : ESCOLHER_DA_LISTA : Retunr : 1 ;
+[22-04-2024 15:53:1713812013] : ESCOLHER_DA_LISTA finalizado!
+[22-04-2024 18:53:1713822809] : EXTRATO Iniciado...
+[22-04-2024 18:53:1713822809] : EXTRATO : Args : ([<C.C. -> Ag.: 0001 N.: 1>, <C.C. -> Ag.: 0001 N.: 2>, <C.C. -> Ag.: 0001 N.: 3>],) : KArgs : {} ;
+[22-04-2024 18:53:1713822809] : EXTRATO : Retunr : None ;
+[22-04-2024 15:53:1713812013] : EXTRATO finalizado!
+[22-04-2024 18:53:1713822821] : LISTAR_USUARIOS Iniciado...
+[22-04-2024 18:53:1713822821] : LISTAR_USUARIOS : Args : ([<Cliente : (444.555.666-11)>, <Cliente : (123.432.123-11)>],) : KArgs : {} ;
+[22-04-2024 18:53:1713822821] : LISTAR_USUARIOS : Retunr : None ;
+[22-04-2024 15:53:1713812021] : LISTAR_USUARIOS finalizado!
