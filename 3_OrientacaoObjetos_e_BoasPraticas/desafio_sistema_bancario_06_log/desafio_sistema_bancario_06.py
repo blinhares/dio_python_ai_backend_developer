@@ -5,11 +5,11 @@ import functools
 from pathlib import Path
 from rich import print
 from rich.panel import Panel
-from rich.progress import track
 from rich.console import Console
 from rich.columns import Columns
 
 con = Console()
+
 
 
 LOG_FILE_DIR = Path(__file__).parent / 'log.txt'
@@ -108,7 +108,7 @@ class Deposito(Transacao):
     def registrar(self, conta):
         if conta.depositar(self._valor):
             conta.historico.adicionar_transacao(self)
-            print(f'(+)Deposito de: R${self._valor}')
+            return f'(+)Deposito de: R${self._valor}'
              
 class Saque(Transacao):
     def __init__(self, valor:float) -> None:
@@ -121,7 +121,7 @@ class Saque(Transacao):
     def registrar(self, conta):
         if conta.sacar(self._valor):
             conta.historico.adicionar_transacao(self)
-            print(f'(-)Saque de: R${self._valor}')          
+            return f'(-)Saque de: R${self._valor}'          
 
 class Historico:
     def __init__(self) -> None:
@@ -304,17 +304,16 @@ def log_transacao(func):
             text = f'[{time}] : {func.__name__.upper()} finalizado!\n'
             file.write(text)
 
-
         return return_func
 
     return wrap
 
-def imprimir_lista(lista, titulo='Lista'):
+def imprimir_lista(lista, titulo='Lista', sub_titulo=''):
     resultado = []
     for index,item in enumerate(lista):
             resultado.append(Panel(f'N.: {index}\n {item}',expand=True))
     con.print(
-        Panel(Columns(resultado),title=titulo ,expand=True)
+        Panel(Columns(resultado),title=titulo, subtitle=sub_titulo )
     )
 
 @log_transacao
@@ -363,18 +362,20 @@ def deposito(contas_correntes):
     conta = retornar_conta(contas_correntes)
     valor = receber_valor()
     transacao = Deposito(valor)
-    transacao.registrar(conta)
+    con.print(Panel(transacao.registrar(conta), title='Transação'))
 
 @log_transacao
 def sacar(contas_correntes):
-                if len(contas_correntes)<1:
-                    print('Nao ha contas cadastradas')
-                    return
-                print('Selecione a Conta para qual deseja realizar a operacao')
-                conta_index = escolher_da_lista(contas_correntes)
-                valor = receber_valor()
-                transacao = Saque(valor)
-                transacao.registrar(contas_correntes[conta_index])
+    if len(contas_correntes)<1:
+        print('Nao ha contas cadastradas')
+        return
+    print('Selecione a Conta para qual deseja realizar a operacao')
+    conta_index = escolher_da_lista(contas_correntes)
+    valor = receber_valor()
+    transacao = Saque(valor)
+    con.print(
+        Panel(transacao.registrar(contas_correntes[conta_index]),
+              title='Transação'))
 
 @log_transacao
 def extrato(contas_correntes):
@@ -382,16 +383,16 @@ def extrato(contas_correntes):
         print('Nao ha contas cadastradas')
     else:
         conta_index = escolher_da_lista(contas_correntes)
-        print('-'*80)
+        con.clear()
+        imprimir_lista([contas_correntes[conta_index]], 'Conta Correntes Selecionada')
         print('extrato da Conta'.upper().center(80))
-        imprimir_lista([contas_correntes[conta_index]], 'Lista de Contas Correntes')
-        # print('-'*80)
+
         print('TIPO'.center(20),'VALOR'.center(20),'Data'.center(20))
         for transacao in contas_correntes[conta_index].historico.gerar_relatorio():
             pass
-        print('-'*80)
-        print('Saldo : R$'.center(20),str(contas_correntes[conta_index].saldo).center(20))
-        print('-'*80)
+        con.print(
+            Panel('Saldo : R$' + str(contas_correntes[conta_index].saldo)))
+        
 
 @log_transacao
 def criar_conta_corrente(pessoas, contas_correntes):
@@ -415,24 +416,18 @@ def cadastro_pessoa_fisica(pessoas):
 
 @log_transacao
 def listar_contas(contas_correntes):
-    print('-'*80)
-
-    print(f'O banco de dados possue {len(contas_correntes)} registros'.upper().center(80))
-    print('-'*80)
+    lista_saida = []
+    sub_titulo = f'O banco de dados possue [b]{len(contas_correntes)} Contas'
 
     for conta in contas_correntes:
-        print('-'*80)
-        for dados in ContaIterador(conta):
-            print(dados)
-        print('-'*80)
-
-    print('-'*80)
+        # for dados in ContaIterador(conta):
+        lista_saida.append((str(conta)))
+    imprimir_lista(lista_saida, 'Lista de Contas Correntes',sub_titulo )
 
 @log_transacao
 def listar_usuarios(pessoas):
-                print('LISTAR USUARIOS'.center(40,'-'))
-                print(f'O banco de dados possue {len(pessoas)} registros')
-                imprimir_lista(pessoas, 'Lista de Usuarios')
+                sub_titulo = (f'O banco de dados possue [b]{len(pessoas)} Usuarios')
+                imprimir_lista(pessoas, 'Lista de Usuarios', sub_titulo)
 
 
 def main():
@@ -492,6 +487,7 @@ def main():
     while True:
         con.print(Panel.fit(menu,title='Menu Banco'))
         opcao = input('Digite uma opcao=>> ')
+        con.clear()
         if opcao == '1':
             deposito(contas_correntes)
             
