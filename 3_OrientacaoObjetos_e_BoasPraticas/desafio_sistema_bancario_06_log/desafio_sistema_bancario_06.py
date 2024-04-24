@@ -519,11 +519,3 @@ def main():
 if __name__ == '__main__':
     main()
     
-    # data = datetime.now().strftime('%d-%m-%Y %H:%M:%S:%f')
-    # print(data)
-    # print(type(data))
-    # data2 = datetime.strptime(data,'%d-%m-%Y %H:%M:%S:%f')
-    # print(data2)
-    # print(type(data2))
-    # time = data2.date()
-    # print(time == datetime.now().date())
