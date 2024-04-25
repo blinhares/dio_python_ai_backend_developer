@@ -6,6 +6,7 @@ from sqlalchemy import pool
 from alembic import context
 
 from workout_api.src.contrib.models import BaseModel
+from workout_api.src.tabelas import *
 
 # this is the Alembic Config object, which provides
 # access to the values within the .ini file in use.
