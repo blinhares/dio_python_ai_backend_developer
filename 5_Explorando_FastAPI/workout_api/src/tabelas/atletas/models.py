@@ -4,7 +4,7 @@ from sqlalchemy import ForeignKey, Integer,\
     String,\
     Float,\
     DateTime
-from src.contrib.models import BaseModel
+from workout_api.src.contrib.models import BaseModel
 from datetime import datetime
 
 

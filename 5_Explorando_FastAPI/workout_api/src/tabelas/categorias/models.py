@@ -2,7 +2,7 @@ from sqlalchemy.orm import Mapped,\
      mapped_column, relationship
 from sqlalchemy import Integer,\
     String
-from src.contrib.models import BaseModel
+from workout_api.src.contrib.models import BaseModel
 
 class CategoriaModel(BaseModel):
     __tablename__='categorias'
