@@ -1,0 +1,12 @@
+version: '3.8'
+
+services:
+  postgres:
+    image: postgres:14-alpine
+    container_name: postgres
+    ports:
+      - "5431:5432"
+    environment:
+      - POSTGRES_USER=workout
+      - POSTGRES_PASSWORD=workout
+      - POSTGRES_DB=workout
