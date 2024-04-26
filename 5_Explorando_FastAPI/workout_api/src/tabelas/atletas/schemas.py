@@ -1,6 +1,6 @@
 from pydantic import Field, PositiveFloat
 from typing import Annotated
-from contrib.schemas import BaseSchema, OutMixin
+from workout_api.src.contrib.schemas import BaseSchema, OutMixin
 
 class Atleta(BaseSchema):
     nome:Annotated[str, Field(
