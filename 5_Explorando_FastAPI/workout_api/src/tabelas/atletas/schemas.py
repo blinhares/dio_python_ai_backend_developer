@@ -1,7 +1,6 @@
 from pydantic import Field, PositiveFloat
 from typing import Annotated
-from contrib.schemas import BaseSchema
-
+from contrib.schemas import BaseSchema, OutMixin
 
 class Atleta(BaseSchema):
     nome:Annotated[str, Field(
@@ -36,3 +35,8 @@ class Atleta(BaseSchema):
         examples=['M','F'],
         max_length=1
     )]
+class AtletaIn(Atleta):
+    pass
+
+class AtletaOut(AtletaIn, OutMixin):
+    pass
