@@ -40,15 +40,19 @@ class AtletaModel(BaseModel):
         String(1),
         nullable=False)
     
-    created_data:Mapped[datetime] = mapped_column(
+    create_at:Mapped[datetime] = mapped_column(
         DateTime,
         nullable=False
     )
 
-    categoria:Mapped['CategoriaModel'] = relationship(back_populates='atleta') # type: ignore
+    categoria:Mapped['CategoriaModel'] = relationship(# type: ignore
+        back_populates='atleta',
+        lazy='selectin') 
+    
     categoria_id:Mapped[int] = mapped_column(ForeignKey('categorias.pk_id'))
     
     centro_treinamento:Mapped['CentroTreinamentoModel'] = relationship( # type: ignore
-        back_populates='atleta') 
+        back_populates='atleta',
+        lazy='selectin') 
     centro_treinamento_id:Mapped[int] = mapped_column(ForeignKey(
         'centro_treinamento.pk_id'))
