@@ -1,6 +1,7 @@
 from datetime import datetime, timezone
+from typing import Any
 from uuid import uuid4
-from fastapi import APIRouter, Body, HTTPException, status
+from fastapi import APIRouter, Body, Depends, HTTPException, status
 from pydantic import UUID4
 from sqlalchemy.future import select
 from workout_api.src.config.dependencies import DatabaseDependency
@@ -11,6 +12,8 @@ from workout_api.src.tabelas.categorias.models import CategoriaModel
 from workout_api.src.tabelas.centro_treinamento.models import CentroTreinamentoModel
 from sqlalchemy.exc import IntegrityError
 
+from fastapi_pagination import LimitOffsetPage ,Page, Params, paginate, add_pagination
+# from fastapi_pagination.ext.sqlalchemy import paginate
 
 router = APIRouter()
 
@@ -82,12 +85,12 @@ async def post(
 
     return atleta_out
 
-#consultar todos atletas
+#consultar todos atletas 
 @router.get(
         '/',
         summary='Consultar Todos as Atletas',
         status_code=status.HTTP_200_OK,
-        response_model=list[AtletaOut_all]
+        response_model=Page[AtletaOut_all]
         )
 async def query( # type: ignore
     db_session:DatabaseDependency,
@@ -98,9 +101,8 @@ async def query( # type: ignore
             select(AtletaModel
         ))).scalars().all() # type: ignore
     
-    return [AtletaOut_all.model_validate(atleta) for atleta in atletas]
-    
-#colsultar por ID
+    return paginate([AtletaOut_all.model_validate(atleta) for atleta in atletas])
+
 @router.get(
         '/{id}',
         summary='Consultar Atleta por ID',
@@ -254,3 +256,6 @@ async def delete(
     
     await db_session.delete(atleta)
     await db_session.commit()
+
+
+add_pagination(router)
