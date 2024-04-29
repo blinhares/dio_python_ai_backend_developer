@@ -81,6 +81,7 @@ async def post(
 
     return atleta_out
 
+#consultar todos atletas
 @router.get(
         '/',
         summary='Consultar Todos as Atletas',
@@ -98,7 +99,7 @@ async def query( # type: ignore
     
     return [AtletaOut.model_validate(atleta) for atleta in atletas]
     
-
+#colsultar por ID
 @router.get(
         '/{id}',
         summary='Consultar Atleta por ID',
@@ -127,13 +128,73 @@ async def get(
 
     return atleta
 
+###nome
+@router.get(
+        '/nome/',
+        summary='Consultar Atleta por Nome',
+        status_code=status.HTTP_200_OK,
+        response_model=AtletaOut
+        )
+async def get_by_name(
+    nome:str,
+    db_session:DatabaseDependency,
+)-> AtletaOut:
+    
+
+    atleta:AtletaOut = (
+        await db_session.execute(
+            
+            select(AtletaModel).\
+                filter_by(nome = nome)
+
+                )
+                ).scalars().first() # type: ignore
+  
+    if not atleta:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail=f'Atleta de nome: {nome} não encontrado!'
+            )
+
+    return atleta
+
+# get by cpf
+@router.get(
+        '/cpf/',
+        summary='Consultar Atleta por CPF',
+        status_code=status.HTTP_200_OK,
+        response_model=AtletaOut
+        )
+async def get_by_cpf(
+    cpf:str,
+    db_session:DatabaseDependency,
+)-> AtletaOut:
+    
+    atleta:AtletaOut = (
+        await db_session.execute(
+            
+            select(AtletaModel).\
+                filter_by(cpf = cpf)
+
+                )
+                ).scalars().first() # type: ignore
+  
+    if not atleta:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail=f'Atleta de cpf: {cpf} não encontrado!'
+            )
+
+    return atleta
+
+#edit by ID
 @router.patch(
         '/{id}',
         summary='Editar Atleta por ID',
         status_code=status.HTTP_200_OK,
         response_model=AtletaOut
         )
-async def query(
+async def patch(
     id:UUID4,
     db_session:DatabaseDependency,
     atleta_up:AtletaUpdate = Body(...)
@@ -164,13 +225,13 @@ async def query(
 
     return atleta
 
-
+#delete by ID
 @router.delete(
         '/{id}',
         summary='Deletar Atleta por ID',
         status_code=status.HTTP_204_NO_CONTENT
     )
-async def get(
+async def delete(
     id:UUID4,
     db_session:DatabaseDependency
     ) -> None:
