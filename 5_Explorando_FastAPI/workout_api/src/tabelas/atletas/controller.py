@@ -5,7 +5,7 @@ from pydantic import UUID4
 from sqlalchemy.future import select
 from workout_api.src.config.dependencies import DatabaseDependency
 from workout_api.src.tabelas.atletas.schemas import AtletaIn,\
-      AtletaOut, AtletaUpdate
+      AtletaOut, AtletaUpdate, AtletaOut_all
 from workout_api.src.tabelas.atletas.models import AtletaModel
 from workout_api.src.tabelas.categorias.models import CategoriaModel
 from workout_api.src.tabelas.centro_treinamento.models import CentroTreinamentoModel
@@ -14,6 +14,7 @@ from sqlalchemy.exc import IntegrityError
 
 router = APIRouter()
 
+#criar atleta
 @router.post(
         '/',
         summary='Criar novo atleta',
@@ -86,18 +87,18 @@ async def post(
         '/',
         summary='Consultar Todos as Atletas',
         status_code=status.HTTP_200_OK,
-        response_model=list[AtletaOut]
+        response_model=list[AtletaOut_all]
         )
 async def query( # type: ignore
     db_session:DatabaseDependency,
-    ) -> list[AtletaOut]:
+    ) -> list[AtletaOut_all]:
 
-    atletas:list[AtletaOut] = (
+    atletas:list[AtletaOut_all] = (
         await db_session.execute(
             select(AtletaModel
         ))).scalars().all() # type: ignore
     
-    return [AtletaOut.model_validate(atleta) for atleta in atletas]
+    return [AtletaOut_all.model_validate(atleta) for atleta in atletas]
     
 #colsultar por ID
 @router.get(
